@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "employee")
-public class Employee implements EmployeeDAO {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +30,6 @@ public class Employee implements EmployeeDAO {
         this.age = age;
         this.idCity = idCity;
     }
-
-    //public Employee(int id, String firstName, City city, int amount) {
-
-    //}
 
     public Employee() {}
 
@@ -110,42 +106,7 @@ public class Employee implements EmployeeDAO {
                 '}';
     }
 
-    @Override
-    public void create(Employee employee) {
-        try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();){
-            Transaction transaction = session.beginTransaction();
-            session.save(employee);
-            transaction.commit();
-        }
-    }
 
-    @Override
-    public Employee readById(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Employee.class,  id);
-    }
-
-    @Override
-    public List<Employee> readAll() {
-        List<Employee> employeeLis = (List<Employee>) HibernateSessionFactoryUtil
-                .getSessionFactory().openSession().createQuery("From Employee").list();
-        return employeeLis;
-    }
-
-    @Override
-    public void updateAmountById(int id) {
-        try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()){
-            Transaction transaction = session.beginTransaction();
-            session.update(id);
-            transaction.commit();
-        }
-    }
-
-    @Override
-    public void deleteById(int id) {
-        try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()){
-            Transaction transaction = session.beginTransaction();
-            session.delete(id);
-            transaction.commit();
-        }
+    public void deleteById(int i) {
     }
 }
